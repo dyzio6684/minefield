@@ -1,6 +1,7 @@
 mod types;
 mod events;
 mod render;
+mod widgets;
 
 use events::run_event_loop;
 use render::render;
