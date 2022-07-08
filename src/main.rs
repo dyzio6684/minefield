@@ -7,6 +7,7 @@ use events::run_event_loop;
 use render::render;
 use sdl2::pixels::Color;
 use types::SdlData;
+use widgets::Widget;
 
 fn init() -> SdlData {
     let sdl = sdl2::init().unwrap();
@@ -26,10 +27,13 @@ fn init() -> SdlData {
     let event_pump = sdl.event_pump().unwrap();
     let texture_creator = canvas.texture_creator();
 
+    let widgets = Vec::<Box<dyn Widget>>::new();
+
     SdlData {
         canvas,
         event_pump,
         texture_creator,
+        widgets,
     }
 }
 
@@ -37,7 +41,7 @@ fn main() {
     let mut sdl_data = init();
 
     loop {
-        render(&mut sdl_data.canvas);
+        render(&mut sdl_data);
         if !run_event_loop(&mut sdl_data.event_pump) {
             break;
         }
