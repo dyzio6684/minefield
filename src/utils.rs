@@ -31,6 +31,8 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
             temp.push(Cell {
                 x: (x * 24) as i32,
                 y: (y * 24) as i32,
+                gx: x,
+                gy: y,
                 mine: mine_pos.contains(&(y * width + x)),
                 state: CellState::Hidden,
             });
