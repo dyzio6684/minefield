@@ -38,7 +38,7 @@ fn init() -> SdlData {
 fn main() {
     let mut sdl_data = init();
     let render_data = RenderData {
-        cells: generate_cells(12, 16, 10),
+        cells: generate_cells(10, 15, 12),
     };
 
     loop {
