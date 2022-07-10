@@ -3,8 +3,8 @@ use super::Widget;
 pub const CELL_SIZE: u32 = 24;
 
 pub struct Cell {
-    x: i32,
-    y: i32,
+    pub x: i32,
+    pub y: i32,
 }
 
 impl Widget for Cell {

@@ -1,13 +1,13 @@
 use sdl2::{image::LoadTexture, rect::Rect};
 
-use crate::types::SdlData;
+use crate::{types::{SdlData, RenderData}, widgets::Widget};
 
-pub fn render(data: &mut SdlData) {
-    data.canvas.clear();
+pub fn render(sdl: &mut SdlData, data: &RenderData) {
+    sdl.canvas.clear();
 
-    for widget in data.widgets.iter() {
-        data.canvas.copy(
-            &data.texture_creator.load_texture(widget.get_texture()).unwrap(),
+    for widget in data.cells.iter() {
+        sdl.canvas.copy(
+            &sdl.texture_creator.load_texture(widget.get_texture()).unwrap(),
             None,
             Some(Rect::new(
                 widget.get_pos().0,
@@ -18,5 +18,5 @@ pub fn render(data: &mut SdlData) {
         ).unwrap();
     }
 
-    data.canvas.present();
+    sdl.canvas.present();
 }

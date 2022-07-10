@@ -6,8 +6,8 @@ mod widgets;
 use events::run_event_loop;
 use render::render;
 use sdl2::pixels::Color;
-use types::SdlData;
-use widgets::Widget;
+use types::{SdlData, RenderData};
+use widgets::Cell;
 
 fn init() -> SdlData {
     let sdl = sdl2::init().unwrap();
@@ -27,21 +27,34 @@ fn init() -> SdlData {
     let event_pump = sdl.event_pump().unwrap();
     let texture_creator = canvas.texture_creator();
 
-    let widgets = Vec::<Box<dyn Widget>>::new();
-
     SdlData {
         canvas,
         event_pump,
         texture_creator,
-        widgets,
     }
+}
+
+fn generate_cells(w: usize, h: usize) -> Vec<Cell> {
+    let mut temp = Vec::<Cell>::with_capacity(w * h);
+    for x in 0..w {
+        for y in 0..h {
+            temp.push(Cell {
+                x: (x * 24) as i32,
+                y: (y * 24) as i32,
+            });
+        }
+    }
+    temp
 }
 
 fn main() {
     let mut sdl_data = init();
+    let render_data = RenderData {
+        cells: generate_cells(12, 16),
+    };
 
     loop {
-        render(&mut sdl_data);
+        render(&mut sdl_data, &render_data);
         if !run_event_loop(&mut sdl_data.event_pump) {
             break;
         }
