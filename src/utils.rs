@@ -2,7 +2,7 @@ use std::collections::HashSet;
 
 use rand::Rng;
 
-use crate::{widgets::{Cell, Widget}, types::CellState};
+use crate::{widgets::{Cell, Widget}, types::{CellState, GameData, GameState}};
 
 fn generate_mines(mines: usize, max: usize) -> HashSet<usize> {
     let mut temp = HashSet::<usize>::with_capacity(mines);
@@ -76,23 +76,23 @@ pub fn is_hovered(widget: &dyn Widget, x: i32, y: i32) -> bool {
     y <= widget.get_pos().1 + widget.get_size().1 as i32
 }
 
-pub fn change_state(cells: &mut Vec<Cell>, x: usize, y: usize, width: usize, height: usize, clicked: bool) {
-    if let Some(s) = cells.get_mut(y * width + x) {
+pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, height: usize, clicked: bool) {
+    if let Some(s) = data.cells.get_mut(y * width + x) {
         if !s.mine {
             match s.state {
                 CellState::Hidden(0) => {
                     s.state = CellState::Revealed(0);
                     if x > 0 {
-                        change_state(cells, x - 1, y, width, height, false);
+                        change_state(data, x - 1, y, width, height, false);
                     }
                     if x < width {
-                        change_state(cells, x + 1, y, width, height, false);
+                        change_state(data, x + 1, y, width, height, false);
                     }
                     if y > 0 {
-                        change_state(cells, x, y - 1, width, height, false);
+                        change_state(data, x, y - 1, width, height, false);
                     }
                     if y < height {
-                        change_state(cells, x, y + 1, width, height, false);
+                        change_state(data, x, y + 1, width, height, false);
                     }
                 }
                 CellState::Hidden(i) => s.state = CellState::Revealed(i),
@@ -101,6 +101,7 @@ pub fn change_state(cells: &mut Vec<Cell>, x: usize, y: usize, width: usize, hei
         } else {
             if clicked {
                 s.state = CellState::Revealed(10);
+                data.state = GameState::Lose;
             }
         }
     }

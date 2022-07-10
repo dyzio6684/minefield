@@ -7,7 +7,7 @@ mod utils;
 use events::run_event_loop;
 use render::render;
 use sdl2::pixels::Color;
-use types::{SdlData, GameData};
+use types::{SdlData, GameData, GameState};
 use utils::generate_cells;
 
 fn init() -> SdlData {
@@ -41,6 +41,7 @@ fn main() {
         cells: generate_cells(10, 15, 12),
         width: 10,
         height: 15,
+        state: GameState::Playing,
     };
 
     loop {
