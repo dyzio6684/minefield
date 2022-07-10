@@ -8,7 +8,7 @@ pub fn run_event_loop(sdl: &mut SdlData, data: &GameData) -> bool {
             Event::Quit { .. } => return false,
             Event::MouseButtonDown { mouse_btn, x, y, .. } => {
                 if mouse_btn == MouseButton::Left {
-                    for i in data.cells {
+                    for i in data.cells.iter() {
                         if is_hovered(i, x, y) {
                             i.mouse_down();
                         }
