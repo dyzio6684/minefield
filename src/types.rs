@@ -1,9 +1,10 @@
-use sdl2::{video::{Window, WindowContext}, render::{Canvas, TextureCreator}, EventPump};
+use sdl2::{video::{Window, WindowContext}, render::{Canvas, TextureCreator}, EventPump, ttf::Sdl2TtfContext};
 
 use crate::widgets::Cell;
 
 pub struct SdlData {
     pub canvas: Canvas<Window>,
+    pub ttf: Sdl2TtfContext,
     pub event_pump: EventPump,
     pub texture_creator: TextureCreator<WindowContext>,
 }

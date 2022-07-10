@@ -13,6 +13,7 @@ use utils::generate_cells;
 fn init() -> SdlData {
     let sdl = sdl2::init().unwrap();
     let video = sdl.video().unwrap();
+    let ttf = sdl2::ttf::init().unwrap();
     let window = video.window("Minefield", 240, 360)
         .position_centered()
         .build()
@@ -30,6 +31,7 @@ fn init() -> SdlData {
 
     SdlData {
         canvas,
+        ttf,
         event_pump,
         texture_creator,
     }
