@@ -11,3 +11,8 @@ pub struct SdlData {
 pub struct GameData {
     pub cells: Vec<Cell>,
 }
+
+pub enum CellState {
+    Hidden,
+    Revealed(u8),
+}

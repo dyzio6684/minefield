@@ -37,13 +37,13 @@ fn init() -> SdlData {
 
 fn main() {
     let mut sdl_data = init();
-    let data = GameData {
+    let mut data = GameData {
         cells: generate_cells(10, 15, 12),
     };
 
     loop {
         render(&mut sdl_data, &data);
-        if !run_event_loop(&mut sdl_data, &data) {
+        if !run_event_loop(&mut sdl_data, &mut data) {
             break;
         }
     }

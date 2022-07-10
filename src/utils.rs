@@ -2,7 +2,7 @@ use std::collections::HashSet;
 
 use rand::Rng;
 
-use crate::widgets::{Cell, Widget};
+use crate::{widgets::{Cell, Widget}, types::CellState};
 
 fn generate_mines(mines: usize, max: usize) -> HashSet<usize> {
     let mut temp = HashSet::<usize>::with_capacity(mines);
@@ -32,6 +32,7 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
                 x: (x * 24) as i32,
                 y: (y * 24) as i32,
                 mine: mine_pos.contains(&(y * width + x)),
+                state: CellState::Hidden,
             });
         }
     }
