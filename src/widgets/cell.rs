@@ -17,6 +17,6 @@ impl Widget for Cell {
     }
 
     fn get_texture(&self) -> &str {
-        todo!()
+        "data/square0.png"
     }
 }
