@@ -11,7 +11,9 @@ pub fn run_event_loop(sdl: &mut SdlData, data: &mut GameData) -> bool {
                     let cells = data.cells.clone();
                     for i in cells.iter() {
                         if is_hovered(i, x, y) {
-                            change_state(&mut data.cells, i.gx, i.gy, data.width, data.height, true);
+                            if let CellState::Hidden(_) = i.state {
+                                change_state(&mut data.cells, i.gx, i.gy, data.width, data.height, true);
+                            }
                         }
                     }
                 } else if mouse_btn == MouseButton::Right {

@@ -95,7 +95,6 @@ pub fn change_state(cells: &mut Vec<Cell>, x: usize, y: usize, width: usize, hei
                         change_state(cells, x, y + 1, width, height, false);
                     }
                 }
-                CellState::Flag(_) => {},
                 CellState::Hidden(i) => s.state = CellState::Revealed(i),
                 _ => {}
             }
