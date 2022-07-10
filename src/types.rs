@@ -12,6 +12,7 @@ pub struct GameData {
     pub cells: Vec<Cell>,
     pub width: usize,
     pub height: usize,
+    pub mines: u32,
     pub state: GameState,
 }
 
@@ -23,7 +24,7 @@ pub enum CellState {
 }
 
 pub enum GameState {
-    Playing,
+    Playing(u32),
     Lose,
     Win,
 }

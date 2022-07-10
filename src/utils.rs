@@ -82,6 +82,9 @@ pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, heigh
             match s.state {
                 CellState::Hidden(0) => {
                     s.state = CellState::Revealed(0);
+                    if let GameState::Playing(j) = data.state {
+                        data.state = GameState::Playing(j - 1);
+                    }
                     if x > 0 {
                         change_state(data, x - 1, y, width, height, false);
                     }
@@ -95,7 +98,12 @@ pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, heigh
                         change_state(data, x, y + 1, width, height, false);
                     }
                 }
-                CellState::Hidden(i) => s.state = CellState::Revealed(i),
+                CellState::Hidden(i) => {
+                    s.state = CellState::Revealed(i);
+                    if let GameState::Playing(j) = data.state {
+                        data.state = GameState::Playing(j - 1);
+                    }
+                },
                 _ => {}
             }
         } else {

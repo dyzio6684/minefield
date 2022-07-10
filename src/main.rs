@@ -41,7 +41,8 @@ fn main() {
         cells: generate_cells(10, 15, 12),
         width: 10,
         height: 15,
-        state: GameState::Playing,
+        mines: 12,
+        state: GameState::Playing(10 * 15),
     };
 
     loop {

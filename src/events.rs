@@ -8,7 +8,7 @@ pub fn run_event_loop(sdl: &mut SdlData, data: &mut GameData) -> bool {
             Event::Quit { .. } => return false,
             Event::MouseButtonDown { mouse_btn, x, y, .. } => {
                 match data.state {
-                    GameState::Playing => {
+                    GameState::Playing(_) => {
                         if mouse_btn == MouseButton::Left {
                             let cells = data.cells.clone();
                             for i in cells.iter() {
@@ -16,6 +16,11 @@ pub fn run_event_loop(sdl: &mut SdlData, data: &mut GameData) -> bool {
                                     if let CellState::Hidden(_) = i.state {
                                         change_state(data, i.gx, i.gy, data.width, data.height, true);
                                     }
+                                }
+                            }
+                            if let GameState::Playing(i) = data.state {
+                                if i <= data.mines {
+                                    data.state = GameState::Win;
                                 }
                             }
                         } else if mouse_btn == MouseButton::Right {
