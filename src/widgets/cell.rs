@@ -25,7 +25,7 @@ impl Widget for Cell {
 
     fn get_texture(&self) -> String {
         match self.state {
-            CellState::Hidden(11) => {
+            CellState::Flag(_) => {
                 "data/square11.png".to_string()
             }
             CellState::Hidden(_) => {

@@ -17,10 +17,10 @@ pub fn run_event_loop(sdl: &mut SdlData, data: &mut GameData) -> bool {
                 } else if mouse_btn == MouseButton::Right {
                     for i in data.cells.iter_mut() {
                         if is_hovered(i, x, y) {
-                            if let CellState::Hidden(11) = i.state {
-                                i.state = CellState::Hidden(0)
-                            } else if let CellState::Hidden(_) = i.state {
-                                i.state = CellState::Hidden(11);
+                            if let CellState::Hidden(j) = i.state {
+                                i.state = CellState::Flag(j)
+                            } else if let CellState::Flag(j) = i.state {
+                                i.state = CellState::Hidden(j);
                             }
                         }
                     }
