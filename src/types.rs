@@ -8,10 +8,6 @@ pub struct SdlData {
     pub texture_creator: TextureCreator<WindowContext>,
 }
 
-pub struct RenderData {
+pub struct GameData {
     pub cells: Vec<Cell>,
-}
-
-pub struct EventData<'a> {
-    pub cells: &'a Vec<Cell>,
 }

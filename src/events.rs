@@ -1,8 +1,8 @@
 use sdl2::{event::Event, mouse::MouseButton};
 
-use crate::{types::{EventData, SdlData}, widgets::Widget, utils::is_hovered};
+use crate::{types::{SdlData, GameData}, widgets::Widget, utils::is_hovered};
 
-pub fn run_event_loop(sdl: &mut SdlData, data: &EventData) -> bool {
+pub fn run_event_loop(sdl: &mut SdlData, data: &GameData) -> bool {
     for event in sdl.event_pump.poll_iter() {
         match event {
             Event::Quit { .. } => return false,

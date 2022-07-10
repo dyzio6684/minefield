@@ -7,7 +7,7 @@ mod utils;
 use events::run_event_loop;
 use render::render;
 use sdl2::pixels::Color;
-use types::{SdlData, RenderData, EventData};
+use types::{SdlData, GameData};
 use utils::generate_cells;
 
 fn init() -> SdlData {
@@ -37,17 +37,13 @@ fn init() -> SdlData {
 
 fn main() {
     let mut sdl_data = init();
-    let render_data = RenderData {
+    let data = GameData {
         cells: generate_cells(10, 15, 12),
     };
 
-    let event_data = EventData {
-        cells: &render_data.cells,
-    };
-
     loop {
-        render(&mut sdl_data, &render_data);
-        if !run_event_loop(&mut sdl_data, &event_data) {
+        render(&mut sdl_data, &data);
+        if !run_event_loop(&mut sdl_data, &data) {
             break;
         }
     }

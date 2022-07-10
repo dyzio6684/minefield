@@ -1,8 +1,8 @@
 use sdl2::{image::LoadTexture, rect::Rect};
 
-use crate::{types::{SdlData, RenderData}, widgets::Widget};
+use crate::{types::{SdlData, GameData}, widgets::Widget};
 
-pub fn render(sdl: &mut SdlData, data: &RenderData) {
+pub fn render(sdl: &mut SdlData, data: &GameData) {
     sdl.canvas.clear();
 
     for widget in data.cells.iter() {
