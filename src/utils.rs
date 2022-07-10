@@ -50,6 +50,9 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
                         if i == 0 && j == 0 {
                             continue;
                         }
+                        if y + i < 0 || y + i >= height as isize || x + j < 0 || x + j >= width as isize {
+                            continue;
+                        }
                         if let Some(s) = cells.get(((y + i) * width as isize + x + j) as usize) {
                             if s.mine {
                                 mines += 1;
