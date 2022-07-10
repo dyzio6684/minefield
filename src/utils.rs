@@ -1,35 +1,23 @@
+use std::collections::HashSet;
+
 use rand::Rng;
 
 use crate::widgets::Cell;
 
-fn generate_mines(mines: usize, max: usize) -> Vec<usize> {
-    let mut temp = Vec::<usize>::with_capacity(mines);
+fn generate_mines(mut mines: usize, max: usize) -> HashSet<usize> {
+    let mut temp = HashSet::<usize>::with_capacity(mines);
     let mut rand = rand::thread_rng();
 
     for _ in 0..mines {
-        'gen: loop {
-            let num = rand.gen_range(0..max);
-            for i in temp.iter() {
-                if *i == num {
-                    continue 'gen;
-                }
-                temp.push(num);
-                break 'gen;
-            }
+        let num = rand.gen_range(0..max);
+        if temp.contains(&num) {
+            mines += 1;
+        } else {
+            temp.insert(num);
         }
     }
 
     temp
-}
-
-fn has_mine(pos: usize, mine_pos: &Vec<usize>) -> bool {
-    for i in mine_pos {
-        if *i == pos {
-            return true;
-        }
-    }
-
-    false
 }
 
 pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
@@ -41,7 +29,7 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
             temp.push(Cell {
                 x: (x * 24) as i32,
                 y: (y * 24) as i32,
-                mine: has_mine(y * width + x, &mine_pos),
+                mine: mine_pos.contains(&(y * width + x)),
             });
         }
     }
