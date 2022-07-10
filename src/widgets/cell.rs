@@ -5,6 +5,7 @@ pub const CELL_SIZE: u32 = 24;
 pub struct Cell {
     pub x: i32,
     pub y: i32,
+    pub mine: bool,
 }
 
 impl Widget for Cell {
