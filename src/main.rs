@@ -2,12 +2,13 @@ mod types;
 mod events;
 mod render;
 mod widgets;
+mod utils;
 
 use events::run_event_loop;
 use render::render;
 use sdl2::pixels::Color;
 use types::{SdlData, RenderData};
-use widgets::Cell;
+use utils::generate_cells;
 
 fn init() -> SdlData {
     let sdl = sdl2::init().unwrap();
@@ -32,19 +33,6 @@ fn init() -> SdlData {
         event_pump,
         texture_creator,
     }
-}
-
-fn generate_cells(w: usize, h: usize) -> Vec<Cell> {
-    let mut temp = Vec::<Cell>::with_capacity(w * h);
-    for x in 0..w {
-        for y in 0..h {
-            temp.push(Cell {
-                x: (x * 24) as i32,
-                y: (y * 24) as i32,
-            });
-        }
-    }
-    temp
 }
 
 fn main() {
