@@ -4,6 +4,7 @@ use super::Widget;
 
 pub const CELL_SIZE: u32 = 24;
 
+#[derive(Clone)]
 pub struct Cell {
     pub x: i32,
     pub y: i32,
@@ -22,23 +23,19 @@ impl Widget for Cell {
         (CELL_SIZE, CELL_SIZE)
     }
 
-    fn get_texture(&self) -> &str {
+    fn get_texture(&self) -> String {
         match self.state {
             CellState::Hidden => {
-                "data/square9.png"
+                "data/square9.png".to_string()
             }
-            CellState::Revealed(_) => {
-                if self.mine {
-                    "data/square10.png"
-                } else {
-                    "data/square0.png"
-                }
+            CellState::Revealed(i) => {
+                format!("data/square{}.png", i)
             }
         }
     }
 
     fn mouse_down(&mut self) {
-        self.state = CellState::Revealed(0);
+        
     }
 
     fn mouse_up(&self) {
