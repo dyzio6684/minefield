@@ -24,4 +24,12 @@ impl Widget for Cell {
             "data/square0.png"
         }
     }
+
+    fn mouse_down(&self) {
+        println!("{}", self.mine);
+    }
+
+    fn mouse_up(&self) {
+        
+    }
 }

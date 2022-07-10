@@ -11,3 +11,7 @@ pub struct SdlData {
 pub struct RenderData {
     pub cells: Vec<Cell>,
 }
+
+pub struct EventData<'a> {
+    pub cells: &'a Vec<Cell>,
+}

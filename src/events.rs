@@ -1,9 +1,20 @@
-use sdl2::{EventPump, event::Event};
+use sdl2::{event::Event, mouse::MouseButton};
 
-pub fn run_event_loop(event_pump: &mut EventPump) -> bool {
-    for event in event_pump.poll_iter() {
+use crate::{types::{EventData, SdlData}, widgets::Widget, utils::is_hovered};
+
+pub fn run_event_loop(sdl: &mut SdlData, data: &EventData) -> bool {
+    for event in sdl.event_pump.poll_iter() {
         match event {
             Event::Quit { .. } => return false,
+            Event::MouseButtonDown { mouse_btn, x, y, .. } => {
+                if mouse_btn == MouseButton::Left {
+                    for i in data.cells {
+                        if is_hovered(i, x, y) {
+                            i.mouse_down();
+                        }
+                    }
+                }
+            }
             _ => {}
         }
     }

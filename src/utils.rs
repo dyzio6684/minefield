@@ -2,7 +2,7 @@ use std::collections::HashSet;
 
 use rand::Rng;
 
-use crate::widgets::Cell;
+use crate::widgets::{Cell, Widget};
 
 fn generate_mines(mines: usize, max: usize) -> HashSet<usize> {
     let mut temp = HashSet::<usize>::with_capacity(mines);
@@ -36,4 +36,11 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
         }
     }
     temp
+}
+
+pub fn is_hovered(widget: &dyn Widget, x: i32, y: i32) -> bool {
+    x >= widget.get_pos().0 &&
+    y >= widget.get_pos().1 &&
+    x <= widget.get_pos().0 + widget.get_size().0 as i32 &&
+    y <= widget.get_pos().1 + widget.get_size().1 as i32
 }
