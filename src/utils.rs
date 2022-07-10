@@ -4,16 +4,18 @@ use rand::Rng;
 
 use crate::widgets::Cell;
 
-fn generate_mines(mut mines: usize, max: usize) -> HashSet<usize> {
+fn generate_mines(mines: usize, max: usize) -> HashSet<usize> {
     let mut temp = HashSet::<usize>::with_capacity(mines);
     let mut rand = rand::thread_rng();
+    let mut counter = mines;
 
-    for _ in 0..mines {
+    while counter > 0 {
         let num = rand.gen_range(0..max);
         if temp.contains(&num) {
-            mines += 1;
+            continue;
         } else {
             temp.insert(num);
+            counter -= 1;
         }
     }
 
