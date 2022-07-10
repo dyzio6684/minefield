@@ -18,6 +18,10 @@ impl Widget for Cell {
     }
 
     fn get_texture(&self) -> &str {
-        "data/square0.png"
+        if self.mine {
+            "data/square9.png"
+        } else {
+            "data/square0.png"
+        }
     }
 }
