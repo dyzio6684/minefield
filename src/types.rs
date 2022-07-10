@@ -10,8 +10,11 @@ pub struct SdlData {
 
 pub struct GameData {
     pub cells: Vec<Cell>,
+    pub width: usize,
+    pub height: usize,
 }
 
+#[derive(Clone, PartialEq)]
 pub enum CellState {
     Hidden,
     Revealed(u8),

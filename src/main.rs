@@ -39,6 +39,8 @@ fn main() {
     let mut sdl_data = init();
     let mut data = GameData {
         cells: generate_cells(10, 15, 12),
+        width: 10,
+        height: 15,
     };
 
     loop {

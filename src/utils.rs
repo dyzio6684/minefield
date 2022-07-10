@@ -47,3 +47,29 @@ pub fn is_hovered(widget: &dyn Widget, x: i32, y: i32) -> bool {
     x <= widget.get_pos().0 + widget.get_size().0 as i32 &&
     y <= widget.get_pos().1 + widget.get_size().1 as i32
 }
+
+pub fn change_state(cells: &mut Vec<Cell>, x: usize, y: usize, width: usize, height: usize, clicked: bool) {
+    if let Some(s) = cells.get_mut(y * width + x) {
+        if s.state == CellState::Hidden {
+            if !s.mine {
+                s.state = CellState::Revealed(0);
+                if x > 0 {
+                    change_state(cells, x - 1, y, width, height, false);
+                }
+                if x < width {
+                    change_state(cells, x + 1, y, width, height, false);
+                }
+                if y > 0 {
+                    change_state(cells, x, y - 1, width, height, false);
+                }
+                if y < height {
+                    change_state(cells, x, y + 1, width, height, false);
+                }
+            } else {
+                if clicked {
+                    s.state = CellState::Revealed(10);
+                }
+            }
+        }
+    }
+}
