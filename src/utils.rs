@@ -34,10 +34,35 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
                 gx: x,
                 gy: y,
                 mine: mine_pos.contains(&(y * width + x)),
-                state: CellState::Hidden,
+                state: CellState::Hidden(0),
             });
         }
     }
+
+    let cells = temp.clone();
+
+    for y in 0..(height as isize) {
+        for x in 0..(width as isize) {
+            if let Some(s) = temp.get_mut((y * width as isize + x) as usize) {
+                let mut mines = 0;
+                for i in -1..=1 {
+                    for j in -1..=1 {
+                        if i == 0 && j == 0 {
+                            continue;
+                        }
+                        if let Some(s) = cells.get(((y + i) * width as isize + x + j) as usize) {
+                            if s.mine {
+                                mines += 1;
+                            }
+                        }
+                    }
+                }
+
+                s.state = CellState::Hidden(mines);
+            }
+        }
+    }
+
     temp
 }
 
@@ -50,25 +75,29 @@ pub fn is_hovered(widget: &dyn Widget, x: i32, y: i32) -> bool {
 
 pub fn change_state(cells: &mut Vec<Cell>, x: usize, y: usize, width: usize, height: usize, clicked: bool) {
     if let Some(s) = cells.get_mut(y * width + x) {
-        if s.state == CellState::Hidden {
-            if !s.mine {
-                s.state = CellState::Revealed(0);
-                if x > 0 {
-                    change_state(cells, x - 1, y, width, height, false);
+        if !s.mine {
+            match s.state {
+                CellState::Hidden(0) => {
+                    s.state = CellState::Revealed(0);
+                    if x > 0 {
+                        change_state(cells, x - 1, y, width, height, false);
+                    }
+                    if x < width {
+                        change_state(cells, x + 1, y, width, height, false);
+                    }
+                    if y > 0 {
+                        change_state(cells, x, y - 1, width, height, false);
+                    }
+                    if y < height {
+                        change_state(cells, x, y + 1, width, height, false);
+                    }
                 }
-                if x < width {
-                    change_state(cells, x + 1, y, width, height, false);
-                }
-                if y > 0 {
-                    change_state(cells, x, y - 1, width, height, false);
-                }
-                if y < height {
-                    change_state(cells, x, y + 1, width, height, false);
-                }
-            } else {
-                if clicked {
-                    s.state = CellState::Revealed(10);
-                }
+                CellState::Hidden(i) => s.state = CellState::Revealed(i),
+                _ => {}
+            }
+        } else {
+            if clicked {
+                s.state = CellState::Revealed(10);
             }
         }
     }

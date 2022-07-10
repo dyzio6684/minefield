@@ -16,6 +16,6 @@ pub struct GameData {
 
 #[derive(Clone, PartialEq)]
 pub enum CellState {
-    Hidden,
+    Hidden(u8),
     Revealed(u8),
 }
