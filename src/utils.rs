@@ -72,8 +72,8 @@ pub fn generate_cells(width: usize, height: usize, mines: usize) -> Vec<Cell> {
 pub fn is_hovered(widget: &dyn Widget, x: i32, y: i32) -> bool {
     x >= widget.get_pos().0 &&
     y >= widget.get_pos().1 &&
-    x <= widget.get_pos().0 + widget.get_size().0 as i32 &&
-    y <= widget.get_pos().1 + widget.get_size().1 as i32
+    x < widget.get_pos().0 + widget.get_size().0 as i32 &&
+    y < widget.get_pos().1 + widget.get_size().1 as i32
 }
 
 fn reveal_field(data: &mut GameData) {
