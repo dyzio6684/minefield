@@ -76,6 +76,20 @@ pub fn is_hovered(widget: &dyn Widget, x: i32, y: i32) -> bool {
     y <= widget.get_pos().1 + widget.get_size().1 as i32
 }
 
+fn reveal_field(data: &mut GameData) {
+    for i in data.cells.iter_mut() {
+        if i.mine {
+            if let CellState::Hidden(_) = i.state {
+                i.state = CellState::Revealed(10);
+            }
+        } else {
+            if let CellState::Flag(_) = i.state {
+                i.state = CellState::Revealed(12);
+            }
+        }
+    }
+}
+
 pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, height: usize, clicked: bool) {
     if let Some(s) = data.cells.get_mut(y * width + x) {
         if !s.mine {
@@ -110,6 +124,7 @@ pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, heigh
             if clicked {
                 s.state = CellState::Revealed(10);
                 data.state = GameState::Lose;
+                reveal_field(data);
             }
         }
     }
