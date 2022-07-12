@@ -88,13 +88,13 @@ pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, heigh
                     if x > 0 {
                         change_state(data, x - 1, y, width, height, false);
                     }
-                    if x < width {
+                    if x < width - 1 {
                         change_state(data, x + 1, y, width, height, false);
                     }
                     if y > 0 {
                         change_state(data, x, y - 1, width, height, false);
                     }
-                    if y < height {
+                    if y < height - 1 {
                         change_state(data, x, y + 1, width, height, false);
                     }
                 }
