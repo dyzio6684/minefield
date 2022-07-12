@@ -20,22 +20,24 @@ pub fn render(sdl: &mut SdlData, data: &GameData) {
 
     match data.state {
         GameState::Lose => {
-            let surface = sdl.ttf.load_font("data/Lato-Regular.ttf", 24)
+            let surface = sdl.ttf.load_font("data/Lato-Regular.ttf", 32)
                 .unwrap()
                 .render("You lost")
-                .solid(Color::RGB(255, 127, 127))
+                .solid(Color::RGB(255, 63, 63))
                 .unwrap();
+            let (w, h) = (surface.width(), surface.height());
             let texture = sdl.texture_creator.create_texture_from_surface(surface).unwrap();
-            sdl.canvas.copy(&texture, None, Rect::new(8, 8, 80, 24)).unwrap();
+            sdl.canvas.copy(&texture, None, Rect::new(8, 8, w, h)).unwrap();
         }
         GameState::Win => {
-            let surface = sdl.ttf.load_font("data/Lato-Regular.ttf", 24)
+            let surface = sdl.ttf.load_font("data/Lato-Regular.ttf", 32)
                 .unwrap()
                 .render("You won")
-                .solid(Color::RGB(127, 255, 127))
+                .solid(Color::RGB(63, 127, 63))
                 .unwrap();
+            let (w, h) = (surface.width(), surface.height());
             let texture = sdl.texture_creator.create_texture_from_surface(surface).unwrap();
-            sdl.canvas.copy(&texture, None, Rect::new(8, 8, 80, 24)).unwrap();
+            sdl.canvas.copy(&texture, None, Rect::new(8, 8, w, h)).unwrap();
         }
         _ => {}
     }
