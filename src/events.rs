@@ -1,6 +1,6 @@
-use sdl2::{event::Event, mouse::MouseButton};
+use sdl2::{event::Event, mouse::MouseButton, keyboard::Keycode};
 
-use crate::{types::{SdlData, GameData, CellState, GameState}, utils::{is_hovered, change_state}};
+use crate::{types::{SdlData, GameData, CellState, GameState}, utils::{is_hovered, change_state, init_field}};
 
 pub fn run_event_loop(sdl: &mut SdlData, data: &mut GameData) -> bool {
     for event in sdl.event_pump.poll_iter() {
@@ -36,6 +36,13 @@ pub fn run_event_loop(sdl: &mut SdlData, data: &mut GameData) -> bool {
                         }
                     }
                     _ => {}
+                }
+            }
+            Event::KeyUp { keycode, .. } => {
+                if let Some(k) = keycode {
+                    if k == Keycode::N {
+                        *data = init_field(10, 15, 12);
+                    }
                 }
             }
             _ => {}
