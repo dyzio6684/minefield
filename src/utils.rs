@@ -129,3 +129,13 @@ pub fn change_state(data: &mut GameData, x: usize, y: usize, width: usize, heigh
         }
     }
 }
+
+pub fn init_field(width: usize, height: usize, mines: usize) -> GameData {
+    GameData {
+        cells: generate_cells(width, height, mines),
+        width,
+        height,
+        mines: mines as u32,
+        state: GameState::Playing((width * height) as u32),
+    }
+}
