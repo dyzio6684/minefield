@@ -6,12 +6,15 @@ mod utils;
 
 use events::run_event_loop;
 use render::render;
-use sdl2::pixels::Color;
+use sdl2::{pixels::Color, hint};
 use types::SdlData;
 use utils::init_field;
 
 fn init() -> SdlData {
     let sdl = sdl2::init().unwrap();
+
+    hint::set("SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR", "0");
+
     let video = sdl.video().unwrap();
     let ttf = sdl2::ttf::init().unwrap();
     let window = video.window("Minefield", 240, 360)
