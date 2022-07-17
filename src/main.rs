@@ -6,7 +6,7 @@ mod utils;
 
 use events::run_event_loop;
 use render::render;
-use sdl2::{pixels::Color, hint};
+use sdl2::{pixels::Color, hint, render::BlendMode};
 use types::SdlData;
 use utils::init_field;
 
@@ -25,6 +25,7 @@ fn init() -> SdlData {
         .build()
         .unwrap();
 
+    canvas.set_blend_mode(BlendMode::Blend);
     canvas.clear();
     canvas.set_draw_color(Color::RGB(31, 37, 47));
     canvas.present();

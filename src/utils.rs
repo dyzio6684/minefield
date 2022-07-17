@@ -1,8 +1,9 @@
 use std::collections::HashSet;
 
 use rand::Rng;
+use sdl2::{pixels::Color, rect::Rect};
 
-use crate::{widgets::{Cell, Widget}, types::{CellState, GameData, GameState}};
+use crate::{widgets::{Cell, Widget}, types::{CellState, GameData, GameState, SdlData}};
 
 fn generate_mines(mines: usize, max: usize) -> HashSet<usize> {
     let mut temp = HashSet::<usize>::with_capacity(mines);
@@ -138,4 +139,15 @@ pub fn init_field(width: usize, height: usize, mines: usize) -> GameData {
         mines: mines as u32,
         state: GameState::Playing((width * height) as u32),
     }
+}
+
+pub fn render_text(sdl: &mut SdlData, text: &str, foreground: Color, x: i32, y: i32) {
+    let surface = sdl.ttf.load_font("data/Lato-Regular.ttf", 24)
+        .unwrap()
+        .render(text)
+        .solid(foreground)
+        .unwrap();
+    let (w, h) = (surface.width(), surface.height());
+    let texture = sdl.texture_creator.create_texture_from_surface(surface).unwrap();
+    sdl.canvas.copy(&texture, None, Rect::new(x, y, w, h)).unwrap();
 }
