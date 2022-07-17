@@ -1,6 +1,6 @@
 # Minefield
 
-Another implementation of classic minesweeper. Written in Rust with SDL2.
+Simple implementation of classic minesweeper. Written in Rust with SDL2.
 
 ## Build
 
