@@ -4,6 +4,8 @@ mod render;
 mod widgets;
 mod utils;
 
+use std::{thread, time::Duration};
+
 use events::run_event_loop;
 use render::render;
 use sdl2::{pixels::Color, hint, render::BlendMode};
@@ -50,5 +52,7 @@ fn main() {
         if !run_event_loop(&mut sdl_data, &mut data) {
             break;
         }
+
+        thread::sleep(Duration::from_nanos(1_000_000_000 / 30));
     }
 }
